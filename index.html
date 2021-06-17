@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript">
+    const $form = $('#form')
+
+    $(document).ready(function () {
+        //ボタンを押すときにPopup表示
+        $('.btn-send').on('click', evt => {
+            var button = document.getElementById("btn_submit");
+            if (!button.classList.contains("abled")) {
+                return false;
+            }
+            var popup = document.getElementById("popup");
+            popup.classList.add("visible");
+        });
+
+        //「コメントを送信」ボタンをクリックすると、フォームに記入内容が送信される
+        $('.send_message_btn').on('click', evt => {
+            var button = document.getElementById("btn_submit");
+            button.classList.remove("abled");
+
+            var popup = document.getElementById("popup");
+            popup.classList.remove("visible");
+
+            var text = document.getElementById("text_area");
+            text.innerHTML = "SLACKに<br>通知した！";
+            $form.submit();
+            return false
+        });
+    });
+
+</script>
+
+<style>
+    @import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+
+    html {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        font-size: 62.5%;
+        width: 250px;
+        height: 250px;
+        margin: auto;
+    }
+
+    p {
+        margin-top: 0px;
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .btn,
+    button.btn {
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 1.5;
+        position: relative;
+        display: inline-block;
+        padding: 1rem 4rem;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        text-align: center;
+        vertical-align: middle;
+        text-decoration: none;
+        letter-spacing: 0.1em;
+        color: #212529;
+        border-radius: 0.5rem;
+        border-color: transparent;
+    }
+
+    button.btn--circle.abled {
+        width: 140px;
+        height: 140px;
+        padding: inherit;
+        border-radius: 20%;
+        color: #fff;
+        background: #eb6877;
+        -webkit-box-shadow: 0 7px 0 #e53b4e;
+        box-shadow: 0 7px 0 #e53b4e;
+    }
+
+    button.btn--circle {
+        width: 140px;
+        height: 140px;
+        padding: inherit;
+        border-radius: 20%;
+        color: #7c9473;
+        background: #e8eae6;
+        -webkit-box-shadow: 0 7px 0 #cdd0cb;
+        box-shadow: 0 7px 0 #cdd0cb;
+    }
+
+    button.btn--circle i {
+        font-size: 150%;
+    }
+
+    .fa-position-bottom {
+        position: absolute;
+        bottom: 1rem;
+        left: calc(50% - 0.5rem);
+    }
+
+    button.btn--circle.abled:hover {
+        -webkit-transform: translate(0, 4px);
+        transform: translate(0, 4px);
+        color: #fff;
+        -webkit-box-shadow: 0 3px 0 #e53b4e;
+        box-shadow: 0 3px 0 #e53b4e;
+    }
+
+    button.btn--circle:disabled,
+    button.btn--circle[disabled] {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+    }
+
+    /* //popup */
+
+    .overlay {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .overlay.visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .popup {
+        margin: 30px auto;
+        padding: 40px;
+        background: #fff;
+        border-radius: 20px;
+        width: 60%;
+        position: relative;
+        transition: all 5s ease-in-out;
+    }
+
+    .popup h2 {
+        font-size: 3em;
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .popup .close:hover {
+        color: #06D85F;
+    }
+
+    .popup .content {
+        font-size: 1.5em;
+        max-height: 30%;
+        overflow: auto;
+        overflow: visible;
+        font-weight: 900;
+    }
+
+    .send_message_btn {
+        font-size: 15px;
+        border: none;
+        min-width: 80px;
+        padding: 12px 12px 12px;
+        transition: all 80ms linear;
+        background: #007a5a;
+        color: #fff;
+        font-weight: 900;
+        box-shadow: none;
+        border-radius: 4px;
+        display: block;
+        margin: 0 0 0 auto;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    .send_message_btn:hover {
+        background: #007a5a;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    .comment {
+        font-size: 1.5em;
+        font-weight: 500;
+        margin: 20px 0px;
+        display: flex;
+        height: 100px;
+        width: 100%;
+        padding: 4px 16px;
+        border-radius: 4px;
+        border: none;
+        box-shadow: 0 0 0 1px #ccc inset;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        resize: vertical;
+    }
+
+    .comment:focus {
+        outline: 0;
+        box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+    }
+</style>
+
+<head>
+    <base target="_top">
+</head>
+<!-- cssなどのスタイル設定はGithubに確認してください。 -->
+
+<body>
+    <!-- action="<?= url ?>" のurlのところは、GASのgoGet()か渡される変数です。どのページのボタンなのかを記録します -->
+    <form method="post" id="form" target="send_notification" action="<?= url ?>">
+        <input type="text" value="<?= where ?>" name="where" id="where" readonly style="visibility:hidden">
+        <div id="popup" class="overlay">
+            <div class="popup">
+                <h2>SLACKに通知する</h2>
+                <a id="popup_close" class="close">&times;</a>
+                <div class="content">
+                    <p>コメントはこちらにご入力ください：</p>
+                    <textarea type="text" class="comment" name="comment"
+                        placeholder="必要であればお名前を後ろに追加してください。コメントは任意です。"></textarea>
+                </div>
+                <button class="send_message_btn">コメントを送信</button>
+            </div>
+        </div>
+    </form>
+    <button id="btn_submit" class="btn btn--circle btn-send abled"><i class="fab fa-slack"></i>
+        <p id="text_area">更新をしたら<br>押してね</p><i class="fas fa-angle-down fa-position-bottom"></i>
+    </button>
+    <!-- ページを更新しないようにtargetをここに指定しておく：send_notification, 見せないように隠す -->
+    <iframe name="send_notification" style="width:0px;height:0px;border:0px;"></iframe>
+</body>
+
+</html>
